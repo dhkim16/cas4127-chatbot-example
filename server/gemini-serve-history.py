@@ -12,6 +12,9 @@ genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 # The Gemini model used
 MODEL = "gemini-2.5-flash-lite"
 
+# History
+history = []
+
 # CORS handling helper function
 def cors_response(response):
     response.headers["Access-Control-Allow-Origin"] = "*"
@@ -30,10 +33,17 @@ def generate():
 
     # Get the JSON data from the request
     data = request.json or {}
+    user_prompt = data.get("prompt", "")
+
+    # Add the user prompt to history
+    history.append({"role": "user", "parts": [{"text": user_prompt}]})
 
     # Obtain the response from Gemini
     model = genai.GenerativeModel(MODEL)
-    r = model.generate_content(data.get("prompt", ""))
+    r = model.generate_content(history)
+
+    # Add Gemini's response to history
+    history.append({"role": "model", "parts": [{"text": r.text}]})
 
     # Return the response from Gemini as JSON
     resp = jsonify({"response": r.text})

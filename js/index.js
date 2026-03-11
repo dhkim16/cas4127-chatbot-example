@@ -25,7 +25,35 @@ async function sendMessage() {
         input.value = "";
 
         // Bot responds
-        // TODO!!!
+        // setTimeout(() => {
+        //     addMessage("Bot", "This is a simulated response.");
+        // }, 1000);
+
+        // fetch('http://localhost:11434/api/generate', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         model: 'qwen:0.5b',
+        //         prompt: message,
+        //         stream: false      // set to true for streaming responses (requires additional handling)
+        //     })
+        // })
+        // .then(response => response.json())
+        // .then(data => addMessage("Bot", data.response));
+
+        fetch('http://localhost:8888/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                prompt: message
+            })
+        })
+        .then(response => response.json())
+        .then(data => addMessage("Bot", data.response));
     }
 }
 

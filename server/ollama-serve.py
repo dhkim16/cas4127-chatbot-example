@@ -26,11 +26,17 @@ def generate():
     data = request.json or {}
 
     # Prepare the payload for the OLLAMA API request
+    payload = {
+        "model": data.get("model", "qwen:0.5b"),
+        "prompt": data.get("prompt", ""),
+        "stream": False
+    }
 
     # Obtain the response from OLLAMA
+    r = requests.post(OLLAMA_URL, json=payload)
 
     # Return the response from OLLAMA as JSON
-    resp = 0 # TODO
+    resp = jsonify(r.json())
     return cors_response(resp)
 
 
