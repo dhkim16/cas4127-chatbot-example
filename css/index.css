@@ -1,0 +1,35 @@
+/* Basic styles for the chat interface components */
+#chat-container {
+    width: 400px;
+    margin: 0 auto;
+    border: 1px solid #333;
+    background-color: #efe;
+    padding: 10px;
+}
+#chat-messages {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #333;
+    background-color: #000;
+    color: #3f3;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+#user-input {
+    width: calc(100% - 60px);
+    padding: 5px;
+}
+#send-button {
+    width: 50px;
+    padding: 5px;
+}
+
+/* Styles for user and bot message text */
+.you {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+}
+.bot {
+    font-family: "Courier New", Courier, monospace;
+    color: #3f3;
+}
